@@ -7,15 +7,8 @@ import scalaj.http.Http
 import net.liftweb.json._
 
 object G extends Command {
-  private val baseUrl = "http://ajax.googleapis.com/ajax/services/search/web"
-
   val command = "g"
-
-  val description =
-    """
-    Get the first matching result from Google's search.
-    Usage: g <pattern>
-    """
+  val description = "Get the first matching result from Google's search.\nUsage: /g <pattern>"
 
   def handler(sender: Int, args: Seq[String]): String = {
     implicit val formats = net.liftweb.json.DefaultFormats
@@ -23,7 +16,7 @@ object G extends Command {
     if (args.length == 0) "Invalid syntax. See /man g"
     else {
       val key = Source.fromFile("google-api-key").mkString
-      val response = Http(baseUrl)
+      val response = Http("http://ajax.googleapis.com/ajax/services/search/web")
         .param("v", "1.0")
         .param("q", args.mkString(" "))
         .param("key", key)

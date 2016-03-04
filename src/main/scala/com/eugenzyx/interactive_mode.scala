@@ -14,7 +14,6 @@ object InteractiveMode {
       case Hey.command     => Hey.handler(0, args)
       case Man.command     => Man.handler(0, args)
       case Weather.command => Weather.handler(0, args)
-      case "exit"          => "Bye!"
       case _ => run
     }
 

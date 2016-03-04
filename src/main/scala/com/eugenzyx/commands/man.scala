@@ -4,11 +4,7 @@ import com.eugenzyx.commands.traits._
 
 object Man extends Command {
   val command = "man"
-
-  val description =
-    """
-    An interface to the on-line reference manuals.
-    """
+  val description = "An interface to the on-line reference manuals.\nUsage: /man <command>"
 
   def handler(sender: Int, args: Seq[String]): String = {
     val entry = args.mkString(" ")
