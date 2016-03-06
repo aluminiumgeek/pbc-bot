@@ -9,4 +9,5 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./bot.token")) with Polling 
   on(Hey.command)     { (sender, args) => replyTo(sender) { Help.handler(sender, args) } }
   on(Man.command)     { (sender, args) => replyTo(sender) { Man.handler(sender, args) } }
   on(Weather.command) { (sender, args) => replyTo(sender) { Weather.handler(sender, args) } }
+  on(Photo.command)   { (sender, args) => Photo.handler(sender, args)((photo, title) => sendPhoto(sender, photo, title), message => sendMessage(sender, message)) }
 }

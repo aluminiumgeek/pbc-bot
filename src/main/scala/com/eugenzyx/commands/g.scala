@@ -12,13 +12,14 @@ object G extends Command {
 
   def handler(sender: Int, args: Seq[String]): String = {
     implicit val formats = net.liftweb.json.DefaultFormats
+    val pattern = args.mkString(" ")
 
-    if (args.length == 0) "Invalid syntax. See /man g"
+    if (args.isEmpty) "Invalid syntax. See /man g"
     else {
-      val key = Source.fromFile("google-api-key").mkString
+      val key = Source.fromFile("google-api-key").mkString.stripLineEnd
       val response = Http("http://ajax.googleapis.com/ajax/services/search/web")
         .param("v", "1.0")
-        .param("q", args.mkString(" "))
+        .param("q", pattern)
         .param("key", key)
         .asString
 
