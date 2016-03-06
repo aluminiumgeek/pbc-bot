@@ -3,7 +3,7 @@ package com.eugenzyx
 import scopt._
 
 object Program {
-  def main(args: Array[String]) = {
+  def main(args: Array[String]): Unit = {
     case class Config(interactive: Boolean = false, launch: Boolean = false)
 
     val parser = new scopt.OptionParser[Config]("scopt") {
@@ -23,13 +23,13 @@ object Program {
         if (config.interactive) {
           println("Starting interactive mode.")
 
-          InteractiveMode.run()
+          InteractiveMode.run
         }
 
         if (config.launch) {
           println("Starting the bot.")
 
-          Bot.run()
+          Bot.run
         }
 
       case None => println("Specify mode to run in: interactive or launch.")

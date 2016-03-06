@@ -1,10 +1,9 @@
 package com.eugenzyx.commands
 
-import com.eugenzyx.commands.traits._
-
+import com.eugenzyx.commands.traits.Command
 import scala.io.Source
 import scalaj.http.Http
-import net.liftweb.json._
+import net.liftweb.json.parse
 
 object G extends Command {
   val command = "g"
@@ -14,8 +13,9 @@ object G extends Command {
     implicit val formats = net.liftweb.json.DefaultFormats
     val pattern = args.mkString(" ")
 
-    if (args.isEmpty) "Invalid syntax. See /man g"
-    else {
+    if (args.isEmpty) {
+      "Invalid syntax. See /man g"
+    } else {
       val key = Source.fromFile("google-api-key").mkString.stripLineEnd
       val response = Http("http://ajax.googleapis.com/ajax/services/search/web")
         .param("v", "1.0")
@@ -25,8 +25,9 @@ object G extends Command {
 
       val results = parse(response.body) \ "responseData" \ "results"
 
-      if (results.children.length == 0) "Not found."
-      else {
+      if (results.children.length == 0) {
+        "Not found."
+      } else {
         val title = (results(0) \ "titleNoFormatting").extract[String]
         val url = (results(0) \ "unescapedUrl").extract[String]
 

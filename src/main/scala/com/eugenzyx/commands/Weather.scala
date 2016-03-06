@@ -1,10 +1,9 @@
 package com.eugenzyx.commands
 
-import com.eugenzyx.commands.traits._
-
+import com.eugenzyx.commands.traits.Command
 import scala.io.Source
 import scalaj.http.Http
-import net.liftweb.json._
+import net.liftweb.json.parse
 import java.util.concurrent.TimeUnit
 
 object Weather extends Command {
@@ -14,8 +13,9 @@ object Weather extends Command {
   def handler(sender: Int, args: Seq[String]): String = {
     val city = args.mkString(" ")
 
-    if (city.isEmpty()) "Invalid syntax. See /man weather"
-    else {
+    if (city.isEmpty()) {
+      "Invalid syntax. See /man weather"
+    } else {
       implicit val formats = net.liftweb.json.DefaultFormats
 
       val key = Source.fromFile("./open-weather-map-key").mkString.stripLineEnd

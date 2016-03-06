@@ -1,6 +1,6 @@
 package com.eugenzyx.commands
 
-import com.eugenzyx.commands.traits._
+import com.eugenzyx.commands.traits.Command
 
 object Hey extends Command {
   val command = "hey"

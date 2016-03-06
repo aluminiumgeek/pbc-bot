@@ -16,6 +16,9 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
+# IDEA
+.idea/
+
 *.swp
 checkpoint/
 

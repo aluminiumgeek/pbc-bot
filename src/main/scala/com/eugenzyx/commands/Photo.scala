@@ -12,7 +12,7 @@ import scala.util.Random
 import scala.concurrent.Future
 import scalaj.http.Http
 import scalaj.http.HttpOptions
-import net.liftweb.json._
+import net.liftweb.json.parse
 
 object Photo extends Command {
   val command = "photo"
@@ -22,6 +22,9 @@ Get a photo that matches a pattern.
 Usage: /photo [pattern]
 Looks for photos by pattern. Ouputs a random photo from last search result if no pattern given.
 """
+
+  val connectionTimeout = 10000
+  val readTimeout = 30000
 
   val lastResults: LinkedHashMap[String, Photos] = LinkedHashMap()
 
@@ -41,47 +44,60 @@ Looks for photos by pattern. Ouputs a random photo from last search result if no
     }
   }
 
-  def handler(sender: Int, args: Seq[String])(foundCallback: (InputFile, Option[String]) => Future[Message], notFoundCallback: String => Future[Message]): Future[Message] = {
+  def getPhotos(pattern: String): Photos = {
     implicit val formats = net.liftweb.json.DefaultFormats
 
-    def getPhotos(pattern: String): Photos =
-      if (lastResults.contains(pattern)) {
-        println("Cached pattern.")
+    if (lastResults.contains(pattern)) {
+      println("Cached pattern.")
 
-        lastResults(pattern)
-      } else {
-        println("Unknown pattern.")
+      lastResults(pattern)
+    } else {
+      println("Unknown pattern.")
 
-        val key = Source.fromFile("flickr-api-key").mkString.stripLineEnd
-        val response = Http("https://api.flickr.com/services/rest/")
-          .param("method", "flickr.photos.search")
-          .param("format", "json")
-          .param("text", pattern)
-          .param("api_key", key)
-          .param("nojsoncallback", "true")
-          .option(HttpOptions.connTimeout(10000))
-          .option(HttpOptions.readTimeout(30000))
-          .asString
+      val key = Source.fromFile("flickr-api-key").mkString.stripLineEnd
+      val response = Http("https://api.flickr.com/services/rest/")
+        .param("method", "flickr.photos.search")
+        .param("format", "json")
+        .param("text", pattern)
+        .param("api_key", key)
+        .param("nojsoncallback", "true")
+        .option(HttpOptions.connTimeout(connectionTimeout))
+        .option(HttpOptions.readTimeout(readTimeout))
+        .asString
 
-        val photos = parse(response.body).extract[Photos]
+      val photos = parse(response.body).extract[Photos]
 
-        lastResults += (pattern -> photos)
-        if (lastResults.size >= 10) lastResults -= lastResults.head._1
+      lastResults += (pattern -> photos)
+      if (lastResults.size >= 10) lastResults -= lastResults.head._1
 
-        photos
-      }
+      photos
+    }
+  }
 
+  def handler(
+               sender: Int,
+               args: Seq[String]
+             )
+             (
+               foundCallback: (InputFile, Option[String]) => Future[Message],
+               notFoundCallback: String => Future[Message]
+             ): Future[Message] =
+  {
     val pattern =
       if (args.isEmpty) {
         if (!lastResults.isEmpty) lastResults.last._1 else ""
+      } else {
+        args.mkString(" ")
       }
-      else args.mkString(" ")
 
-    if (pattern.isEmpty) notFoundCallback("No pattern given. No previous results are present.")
-    else {
+    if (pattern.isEmpty) {
+      notFoundCallback("No pattern given. No previous results are present.")
+    } else {
       val photos = getPhotos(pattern).photos.photo
-      if (photos.isEmpty) notFoundCallback("Not found.")
-      else {
+
+      if (photos.isEmpty) {
+        notFoundCallback("Not found.")
+      } else {
         val photo = Random.shuffle(photos).head
         foundCallback(photo.getPhoto, Option(photo.title))
       }

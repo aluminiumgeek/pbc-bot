@@ -3,7 +3,7 @@ package com.eugenzyx
 import com.eugenzyx.commands._
 
 object InteractiveMode {
-  def run(): Unit = {
+  def run: Unit = {
     val input = readLine().split(" ")
     val command = input.head
     val args = input.tail
