@@ -39,7 +39,9 @@ Looks for photos by pattern. Ouputs a random photo from last search result if no
     val fileUrl = s"https://farm$farm.staticflickr.com/$server/$fileName"
 
     def getPhoto: InputFile = {
+      println(s"Downloading: $fileUrl …")
       downloadPhoto(fileUrl, filePath)
+      println(s"Done: $filePath")
 
       InputFile(filePath)
     }
@@ -100,11 +102,16 @@ Looks for photos by pattern. Ouputs a random photo from last search result if no
       if (photos.isEmpty) {
         notFoundCallback("Not found.")
       } else {
-        val photo = photos(photosObject.index)
 
+        val photo = if (photosObject.index < photos.length) {
+          photos(photosObject.index)
+        } else {
+          photosObject.index = 0
+          photos(photosObject.index)
+        }
         photosObject.index += 1
 
-        foundCallback(photo.getPhoto, Option(s"№${ photosObject.index.toString }: ${ photo.title }"))
+        foundCallback(photo.getPhoto, Option(s"№${ photosObject.index.toString }/${ photos.length}: ${ photo.title }"))
       }
     }
   }
