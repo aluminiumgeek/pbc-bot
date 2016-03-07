@@ -8,7 +8,6 @@ import java.io.File
 import sys.process._
 import scala.collection.mutable.LinkedHashMap
 import scala.io.Source
-import scala.util.Random
 import scala.concurrent.Future
 import scalaj.http.Http
 import scalaj.http.HttpOptions
@@ -29,7 +28,9 @@ Looks for photos by pattern. Ouputs a random photo from last search result if no
   val lastResults: LinkedHashMap[String, Photos] = LinkedHashMap()
 
   case class PhotosList(photo: List[Photo], total: String)
-  case class Photos(stat: String, photos: PhotosList)
+  case class Photos(stat: String, photos: PhotosList) {
+    var index: Int = 0
+  }
   case class Photo(id: String, secret: String, server: String, farm: Int, title: String) {
     private def downloadPhoto(url: String, filename: String) = new URL(url) #> new File(filename) !!
 
@@ -93,13 +94,17 @@ Looks for photos by pattern. Ouputs a random photo from last search result if no
     if (pattern.isEmpty) {
       notFoundCallback("No pattern given. No previous results are present.")
     } else {
-      val photos = getPhotos(pattern).photos.photo
+      val photosObject = getPhotos(pattern)
+      val photos = photosObject.photos.photo
 
       if (photos.isEmpty) {
         notFoundCallback("Not found.")
       } else {
-        val photo = Random.shuffle(photos).head
-        foundCallback(photo.getPhoto, Option(photo.title))
+        val photo = photos(photosObject.index)
+
+        photosObject.index += 1
+
+        foundCallback(photo.getPhoto, Option(s"№${ photosObject.index.toString }: ${ photo.title }"))
       }
     }
   }
