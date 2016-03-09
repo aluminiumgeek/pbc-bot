@@ -2,7 +2,10 @@ package com.eugenzyx
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+
 import com.eugenzyx.commands._
+import com.eugenzyx.modules.RubyModule
+
 import info.mukel.telegram.bots.{TelegramBot, Polling, Commands, Utils}
 
 object Bot extends TelegramBot(Utils.tokenFromFile("./bot.token")) with Polling with Commands {
@@ -17,4 +20,5 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./bot.token")) with Polling 
         sendPhoto(sender, photo, title), message => sendMessage(sender, message))
     }
   }
+  on("random") { (sender, args) => Future { replyTo(sender) { RubyModule.execute("random", args) } } }
 }

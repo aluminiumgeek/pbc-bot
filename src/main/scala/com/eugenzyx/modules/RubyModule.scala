@@ -6,7 +6,7 @@ import java.io.File
 object RubyModule {
   val modulesPath: String = "./src/main/scala/com/eugenzyx/modules/ruby/"
 
-  def execute(module: String, args: Array[String]): String = {
+  def execute(module: String, args: Seq[String]): String = {
     val moduleFile =  new File(modulesPath, s"$module.rb")
 
     if (moduleFile.exists) {
