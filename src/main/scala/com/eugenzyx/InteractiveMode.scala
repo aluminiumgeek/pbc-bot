@@ -1,6 +1,7 @@
 package com.eugenzyx
 
 import com.eugenzyx.commands._
+import com.eugenzyx.modules.RubyModule
 
 object InteractiveMode {
   def run: Unit = {
@@ -14,7 +15,7 @@ object InteractiveMode {
       case Hey.command     => Hey.handler(0, args)
       case Man.command     => Man.handler(0, args)
       case Weather.command => Weather.handler(0, args)
-      case _ => run
+      case _ =>               RubyModule.execute(command, args)
     }
 
     println(output)

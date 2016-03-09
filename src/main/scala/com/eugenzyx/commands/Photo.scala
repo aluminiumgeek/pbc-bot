@@ -102,13 +102,10 @@ Looks for photos by pattern. Ouputs a random photo from last search result if no
       if (photos.isEmpty) {
         notFoundCallback("Not found.")
       } else {
+        if (photosObject.index >= photos.length) photosObject.index = 0
 
-        val photo = if (photosObject.index < photos.length) {
-          photos(photosObject.index)
-        } else {
-          photosObject.index = 0
-          photos(photosObject.index)
-        }
+        val photo = photos(photosObject.index)
+
         photosObject.index += 1
 
         foundCallback(photo.getPhoto, Option(s"№${ photosObject.index.toString }/${ photos.length}: ${ photo.title }"))
