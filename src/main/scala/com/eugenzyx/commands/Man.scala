@@ -19,7 +19,7 @@ object Man extends Command {
         case Photo.command => Photo.description
         case Weather.command => Weather.description
         case Man.command => Man.description
-        case "random" => "Get random number within specified range.\nUsage: /random <left bound> <right bound>"
+        case "random" => "Get a random number from the specified range.\nUsage: /random <left bound> <right bound>"
         case _ => s"No manual entry for $entry"
       }
     }
