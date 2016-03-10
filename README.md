@@ -26,11 +26,11 @@ Refer to `random.rb` as an example.
 
 ## Available Commands
 
-g - I'm Feeling Lucky!
-help - Show help message.
-hey - Hey!
-weather - Get current weather in a city.
-man - An interface to the on-line reference manuals.
-pic - Get a picture that matches a pattern.
-photo - Get a photo that matches a pattern.
-random - Get a random number from the specified range.
+- g - I'm Feeling Lucky!
+- help - Show help message.
+- hey - Hey!
+- weather - Get current weather in a city.
+- man - An interface to the on-line reference manuals.
+- pic - Get a picture that matches a pattern.
+- photo - Get a photo that matches a pattern.
+- random - Get a random number from the specified range.
