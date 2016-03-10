@@ -19,4 +19,18 @@ First, read general topic on [contribution to Open Source](https://guides.github
 ### If you want to add a ruby implementation of a command:
 
 1. Come up with a command name and description add them to a Map (`val modules: Map[String, String]`) at `PROJECT_ROOT/src/main/scala/com/eugenzyx/modules/RubyModule.scala:9`
-2. Create a ruby file that matches the command name at `PROJECT_ROOT/src/main/scala/com/eugenzyx/modules/ruby/` directory. Refer to `random.rb` as an example.
+2. Create a ruby file that matches the command name at `PROJECT_ROOT/src/main/scala/com/eugenzyx/modules/ruby/<command>.rb` directory.
+3. Add `on(<command>)` statement to `PROJECT_ROOT/src/main/scala/com/eugenzyx/Bot.scala`.
+
+Refer to `random.rb` as an example.
+
+## Available Commands
+
+g - I'm Feeling Lucky!
+help - Show help message.
+hey - Hey!
+weather - Get current weather in a city.
+man - An interface to the on-line reference manuals.
+pic - Get a picture that matches a pattern.
+photo - Get a photo that matches a pattern.
+random - Get a random number from the specified range.
