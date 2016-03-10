@@ -8,7 +8,7 @@ import com.eugenzyx.modules.RubyModule
 
 import info.mukel.telegram.bots.{TelegramBot, Polling, Commands, Utils}
 
-object Bot extends TelegramBot(Utils.tokenFromFile("./bot.token")) with Polling with Commands {
+object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with Polling with Commands {
   on(G.command)       { (sender, args) => Future { replyTo(sender) { G.handler(sender, args) } } }
   on(Help.command)    { (sender, args) => Future { replyTo(sender) { Help.handler(sender, args) } } }
   on(Hey.command)     { (sender, args) => Future { replyTo(sender) { Hey.handler(sender, args) } } }
@@ -17,6 +17,12 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./bot.token")) with Polling 
   on(Photo.command)   { (sender, args) =>
     Future {
       Photo.handler(sender, args)((photo, title) =>
+        sendPhoto(sender, photo, title), message => sendMessage(sender, message))
+    }
+  }
+  on(Picture.command)   { (sender, args) =>
+    Future {
+      Picture.handler(sender, args)((photo, title) =>
         sendPhoto(sender, photo, title), message => sendMessage(sender, message))
     }
   }

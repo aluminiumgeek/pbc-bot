@@ -1,16 +1,23 @@
 package com.eugenzyx.commands
 
 import com.eugenzyx.commands.traits.Command
+import com.eugenzyx.modules.RubyModule
 
 object Man extends Command {
   val command = "man"
-  val description = "An interface to the on-line reference manuals.\nUsage: /man <command>"
+  val description =
+    """An interface to the on-line reference manuals.
+      |Usage: /man <command>""".stripMargin
 
   def handler(sender: Int, args: Seq[String]): String = {
     val entry = args.mkString(" ")
 
-    if (entry.isEmpty) {
-      "What manual page do you want?"
+    if (entry.isEmpty) "What manual page do you want?" else getManPage(entry)
+  }
+
+  private def getManPage(entry: String): String = {
+    if (RubyModule.modules.contains(entry)) {
+      RubyModule.modules(entry)
     } else {
       entry match {
         case Help.command => Help.description
@@ -19,7 +26,6 @@ object Man extends Command {
         case Photo.command => Photo.description
         case Weather.command => Weather.description
         case Man.command => Man.description
-        case "random" => "Get a random number from the specified range.\nUsage: /random <left bound> <right bound>"
         case _ => s"No manual entry for $entry"
       }
     }

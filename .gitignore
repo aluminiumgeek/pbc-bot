@@ -22,7 +22,8 @@ project/plugins/project/
 *.swp
 checkpoint/
 
-google-api-key
-bot.token
-open-weather-map-key
-flickr-api-key
+config/google-api-key
+config/google-cx
+config/bot.token
+config/open-weather-map-key
+config/flickr-api-key

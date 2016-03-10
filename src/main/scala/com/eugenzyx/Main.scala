@@ -1,7 +1,5 @@
 package com.eugenzyx
 
-import scopt._
-
 object Program {
   def main(args: Array[String]): Unit = {
     case class Config(interactive: Boolean = false, launch: Boolean = false)
