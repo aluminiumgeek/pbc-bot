@@ -1,8 +1,0 @@
-g - I'm Feeling Lucky!
-help - Show help message.
-hey - Hey!
-weather - Get current weather in a city.
-man - An interface to the on-line reference manuals.
-photo - Get a photo that matches a pattern.
-random - Get a random number from the specified range.
-pic - Get a picture that matches a pattern.
