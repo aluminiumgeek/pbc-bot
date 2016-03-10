@@ -18,5 +18,5 @@ First, read general topic on [contribution to Open Source](https://guides.github
 
 ### If you want to add a ruby implementation of a command:
 
-1. Create a ruby file at `PROJECT_ROOT/src/main/scala/com/eugenzyx/modules/ruby/` directory. Refer to `random.rb` as an example.
-2. Come up with a command name and make the bot to react to it by adding `on(<command>)` statement to `PROJECT_ROOT/src/main/scala/com/eugenzyx/Bot.scala`
+1. Come up with a command name and add its name and description to the Map (`val modules: Map[String, String]`) at `PROJECT_ROOT/src/main/scala/com/eugenzyx/modules/RubyModule.scala:9`
+2. Create a ruby file that matches the command name at `PROJECT_ROOT/src/main/scala/com/eugenzyx/modules/ruby/` directory. Refer to `random.rb` as an example.
