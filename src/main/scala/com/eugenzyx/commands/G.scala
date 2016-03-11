@@ -2,7 +2,8 @@ package com.eugenzyx.commands
 
 import com.eugenzyx.commands.traits.Command
 import com.eugenzyx.utils.Config
-import scalaj.http.Http
+import com.eugenzyx.utils.HttpUtils
+
 import net.liftweb.json.parse
 
 object G extends Command {
@@ -18,7 +19,7 @@ object G extends Command {
     if (args.isEmpty) {
       "Invalid syntax. See /man g"
     } else {
-      val response = Http("http://ajax.googleapis.com/ajax/services/search/web")
+      val response = HttpUtils.request("http://ajax.googleapis.com/ajax/services/search/web")
         .param("v", "1.0")
         .param("q", pattern)
         .param("key", Config("google-api-key"))
@@ -32,8 +33,7 @@ object G extends Command {
         val title = (results(0) \ "titleNoFormatting").extract[String]
         val url = (results(0) \ "unescapedUrl").extract[String]
 
-        val output = s"$title\n\n$url"
-        output
+        s"$title\n\n$url"
       }
     }
   }
