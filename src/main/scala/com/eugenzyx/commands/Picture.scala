@@ -1,6 +1,6 @@
 package com.eugenzyx.commands
 
-import com.eugenzyx.commands.domain.Pictures
+import com.eugenzyx.commands.domain.picture._
 import com.eugenzyx.commands.traits.{ImageCommand, Command}
 import com.eugenzyx.utils.{HttpUtils, Config}
 

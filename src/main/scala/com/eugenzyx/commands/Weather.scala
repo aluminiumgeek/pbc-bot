@@ -1,6 +1,6 @@
 package com.eugenzyx.commands
 
-import com.eugenzyx.commands.domain.WeatherInfo
+import com.eugenzyx.commands.domain.weather._
 import com.eugenzyx.commands.traits.Command
 import com.eugenzyx.utils.{HttpUtils, Config}
 

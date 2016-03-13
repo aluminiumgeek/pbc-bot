@@ -1,23 +1,14 @@
-package com.eugenzyx.commands.domain
+package com.eugenzyx.commands.domain.weather
 
 import java.util.concurrent.TimeUnit
+import java.text.SimpleDateFormat
 
-/**
-  * Created by eugene on 3/10/16.
-  */
-case class City(id: Int, name: String, country: String)
-
-case class WeatherInfoItem(id: Int, main: String, description: String, icon: String)
-
-case class WindInfo(speed: Double)
-
-case class MainInfo(temp: Double, temp_min: Double, temp_max: Double)
-
-case class WeatherList(dt: Int, dt_txt: String, main: MainInfo, weather: WeatherInfoItem, wind: WindInfo)
-
-case class WeatherInfo(city: City, list: List[WeatherList]) {
-  val inputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-  val outputFormat = new java.text.SimpleDateFormat("E, d MMMM, H")
+case class WeatherInfo(
+  city : City,
+  list : List[WeatherList]
+) {
+  val inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+  val outputFormat = new SimpleDateFormat("E, d MMMM, H")
 
   override def toString: String = {
     val header = s"${ city.name }, ${ city.country }"
