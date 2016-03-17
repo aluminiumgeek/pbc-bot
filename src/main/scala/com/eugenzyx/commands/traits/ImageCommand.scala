@@ -51,7 +51,7 @@ trait ImageCommand {
       images.index += 1
 
       try {
-        foundCallback(image.getImage, Option(s"№${ images.index.toString }/${ images.images.length }: ${ image.title }"))
+        foundCallback(image.getImage, None)
       } catch {
         case ioe: IOException =>
           notFoundCallback(s"I got an I/O Excpetion — try downloading an image yourself: ${ image.fileUrl }")
