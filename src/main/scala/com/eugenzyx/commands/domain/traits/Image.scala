@@ -1,5 +1,8 @@
 package com.eugenzyx.commands.domain.traits
 
+import com.eugenzyx.utils.FileTypeUtils
+import com.eugenzyx.exceptions.ImageCorruptException
+
 import java.io.File
 import java.net.URL
 
@@ -31,7 +34,7 @@ trait Image {
 
     new URL(url) #> new File(filePath) !!
 
-    InputFile(filePath)
+    if (FileTypeUtils.isJpeg(filePath)) { InputFile(filePath) } else { throw new ImageCorruptException }
   }
 
   // Downloads the photo and returns [[InputFile]] representation of it.

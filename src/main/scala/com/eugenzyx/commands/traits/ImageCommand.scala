@@ -1,11 +1,16 @@
 package com.eugenzyx.commands.traits
 
 import com.eugenzyx.commands.domain.traits.Images
+import com.eugenzyx.exceptions.ImageCorruptException
+
 import info.mukel.telegram.bots.api.{InputFile, Message}
 
 import scala.collection.mutable.LinkedHashMap
 import scala.concurrent.Future
 import scalaj.http.HttpRequest
+
+import java.io.IOException
+import javax.net.ssl.SSLHandshakeException
 
 /**
   * Created by eugene on 3/10/16.
@@ -45,7 +50,18 @@ trait ImageCommand {
 
       images.index += 1
 
-      foundCallback(image.getImage, Option(s"№${ images.index.toString }/${ images.images.length}: ${ image.title }"))
+      try {
+        foundCallback(image.getImage, Option(s"№${ images.index.toString }/${ images.images.length }: ${ image.title }"))
+      } catch {
+        case ioe: IOException =>
+          notFoundCallback(s"I got an I/O Excpetion — try downloading an image yourself: ${ image.fileUrl }")
+        case sslhe: SSLHandshakeException =>
+          notFoundCallback(s"I got an SSL Handshake Excpetion — try downloading an image yourself: ${ image.fileUrl }")
+        case ice: ImageCorruptException =>
+          notFoundCallback(s"It seems that I have found something other than an image — try downloading it yourself: ${ image.fileUrl }")
+        case e: Exception =>
+          notFoundCallback("I got an exception and don't know how to handle it!")
+      }
     }
   }
 
