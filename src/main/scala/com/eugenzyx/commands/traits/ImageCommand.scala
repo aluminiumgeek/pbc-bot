@@ -51,15 +51,15 @@ trait ImageCommand {
       images.index += 1
 
       def respondWithError(message: String) =
-        notFoundCallback(s"${ message }. Try downloading an image yourself: ${ image.fileUrl }")
+        notFoundCallback(s"${ message }. Try downloading the image yourself: ${ image.fileUrl }")
 
       try {
         foundCallback(image.getImage, None)
       } catch {
         case ioe: IOException =>
-          respondWithError("I got an I/O Excpetion")
+          respondWithError("I got an I/O Exception")
         case sslhe: SSLHandshakeException =>
-          respondWithError("I got an SSL Handshake Excpetion")
+          respondWithError("I got an SSL Handshake Exception")
         case ice: ImageCorruptException =>
           respondWithError("It seems that I have found something other than an image")
         case e: Exception =>
