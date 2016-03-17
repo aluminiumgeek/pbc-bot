@@ -10,6 +10,5 @@ case class Picture(
   title : String
 ) extends Image {
   val fileName = link.split("/").last
-  val filePath = s"/tmp/$fileName"
   val fileUrl  = link
 }

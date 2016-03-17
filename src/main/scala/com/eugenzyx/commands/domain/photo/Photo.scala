@@ -16,6 +16,5 @@ case class Photo(
   title  : String
 ) extends Image {
   val fileName = s"${ id }_${ secret }.jpg"
-  val filePath = s"/tmp/$fileName"
   val fileUrl  = s"https://farm$farm.staticflickr.com/$server/$fileName"
 }

@@ -45,7 +45,7 @@ trait ImageCommand {
 
       images.index += 1
 
-      foundCallback(image.getPhoto, Option(s"№${ images.index.toString }/${ images.images.length}: ${ image.title }"))
+      foundCallback(image.getImage, Option(s"№${ images.index.toString }/${ images.images.length}: ${ image.title }"))
     }
   }
 

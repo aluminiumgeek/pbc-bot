@@ -16,9 +16,6 @@ trait Image {
   // The name of the image under which it is saved to disk.
   val fileName: String
 
-  // Full path to the image file.
-  val filePath: String
-
   // An url by which the image is available on the Internet.
   val fileUrl: String
 
@@ -29,14 +26,27 @@ trait Image {
    *
    * @param url URL of the image to download from.
    */
-  def downloadPhoto(url: String): String = new URL(url) #> new File(filePath) !!
+  def downloadPhoto(url: String): InputFile = {
+    val filePath = getPath
 
-  // Downloads the photo and returns [[InputFile]] representation of it.
-  def getPhoto: InputFile = {
-    val file = new File(filePath)
-
-    if (!file.exists) downloadPhoto(fileUrl)
+    new URL(url) #> new File(filePath) !!
 
     InputFile(filePath)
+  }
+
+  // Downloads the photo and returns [[InputFile]] representation of it.
+  def getImage: InputFile = downloadPhoto(fileUrl)
+
+  // Gets unique name for the file to be downloaded.
+  private def getPath: String = {
+    val downloadedImagesPrefix = "pbcBotImage_"
+
+    def iter(counter: Int = 0): String = {
+      val file = new File(s"/tmp/${ downloadedImagesPrefix }${ counter }.jpg")
+
+      if (file.exists) iter(counter + 1) else file.getPath
+    }
+
+    iter()
   }
 }
