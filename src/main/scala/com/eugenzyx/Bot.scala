@@ -14,6 +14,7 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with P
   on(Hey.command)     { (sender, args) => Future { replyTo(sender) { Hey.handler(sender, args) } } }
   on(Man.command)     { (sender, args) => Future { replyTo(sender) { Man.handler(sender, args) } } }
   on(Weather.command) { (sender, args) => Future { replyTo(sender) { Weather.handler(sender, args) } } }
+  on(Echo.command)    { (sender, args) => Future { replyTo(sender) { Echo.handler(sender, args) } } }
   on(Photo.command)   { (sender, args) =>
     Future {
       Photo.handler(sender, args)((photo, title) =>
