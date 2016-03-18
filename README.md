@@ -29,7 +29,7 @@ Refer to `random.rb` as an example.
 - g - I'm Feeling Lucky!
 - help - Show help message.
 - hey - Hey!
-- echo - Echoes your text
+- echo - Echoes your text.
 - weather - Get current weather in a city.
 - man - An interface to the on-line reference manuals.
 - pic - Get a picture that matches a pattern.
