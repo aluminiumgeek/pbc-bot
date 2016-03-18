@@ -10,9 +10,11 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file("."))
   .settings(commonSettings: _*)
   .settings(
-    libraryDependencies += "info.mukel" %% "telegrambot4s" % "1.0.3-SNAPSHOT",
-    libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.2.1",
-    libraryDependencies += "net.liftweb" %% "lift-json" % "2.6+",
-    libraryDependencies += "com.github.scopt" %% "scopt" % "3.4.0",
-    libraryDependencies += "net.debasishg" %% "redisclient" % "3.1"
+    libraryDependencies ++= Seq(
+      "info.mukel" %% "telegrambot4s" % "1.0.3-SNAPSHOT",
+      "org.scalaj" %% "scalaj-http" % "2.2.1",
+      "net.liftweb" %% "lift-json" % "2.6+",
+      "com.github.scopt" %% "scopt" % "3.4.0",
+      "net.debasishg" %% "redisclient" % "3.1"
+    )
   )
