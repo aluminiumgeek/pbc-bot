@@ -7,6 +7,7 @@ import com.eugenzyx.commands._
 import com.eugenzyx.modules.RubyModule
 
 import info.mukel.telegram.bots.{TelegramBot, Polling, Commands, Utils}
+import info.mukel.telegram.bots.api.InputFile
 
 object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with Polling with Commands {
   on(G.command)       { (sender, args) => Future { replyTo(sender) { G.handler(sender, args) } } }
@@ -17,14 +18,20 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with P
   on(Photo.command)   { (sender, args) =>
     Future {
       Photo.handler(sender, args)((photo, title) =>
-        sendPhoto(sender, photo, title), message => sendMessage(sender, message))
+        photoCallback(sender, photo, title), message => sendMessage(sender, message))
     }
   }
-  on(Picture.command)   { (sender, args) =>
+  on(Picture.command) { (sender, args) =>
     Future {
       Picture.handler(sender, args)((photo, title) =>
-        sendPhoto(sender, photo, title), message => sendMessage(sender, message))
+        photoCallback(sender, photo, title), message => sendMessage(sender, message))
     }
   }
   on("random") { (sender, args) => Future { replyTo(sender) { RubyModule.execute("random", args) } } }
+
+  def photoCallback(sender: Int, photo: Any, title: Option[String]) = photo match {
+    case photo: InputFile => sendPhoto(sender, photo, title)
+    case fileId: String   => sendPhotoId(sender, fileId, title)
+    case _                => throw new IllegalStateException("Incorrect data")
+  }
 }
