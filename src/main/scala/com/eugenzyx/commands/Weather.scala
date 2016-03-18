@@ -22,8 +22,8 @@ object Weather extends Command {
 
       val response = HttpUtils.request("http://api.openweathermap.org/data/2.5/forecast/weather")
         .param("q", city)
-        .param("units", "metric")
-        .param("APPID", Config("open-weather-map-key"))
+        .param("units", Config.weather("units"))
+        .param("APPID", Config.weather("key"))
         .asString
 
       parse(response.body).extract[WeatherInfo].toString
