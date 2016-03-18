@@ -26,6 +26,7 @@ object Man extends Command {
         case Photo.command => Photo.description
         case Picture.command => Picture.description
         case Weather.command => Weather.description
+        case Echo.command => Echo.description
         case Man.command => Man.description
         case _ => s"No manual entry for $entry"
       }
