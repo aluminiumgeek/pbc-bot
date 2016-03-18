@@ -32,7 +32,7 @@ object Photo extends Command with ImageCommand {
         .param("method", "flickr.photos.search")
         .param("format", "json")
         .param("text", pattern)
-        .param("api_key", Config("flickr-api-key"))
+        .param("api_key", Config.flickr("key"))
         .param("nojsoncallback", "true")
 
       val images = getImages(pattern, request, p => parse(p).extract[Photos])

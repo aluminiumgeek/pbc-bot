@@ -1,5 +1,6 @@
 package com.eugenzyx.commands.domain.traits
 
+import com.eugenzyx.utils.Config
 import com.eugenzyx.utils.FileTypeUtils
 import com.eugenzyx.exceptions.ImageCorruptException
 
@@ -42,10 +43,12 @@ trait Image {
 
   // Gets unique name for the file to be downloaded.
   private def getPath: String = {
-    val downloadedImagesPrefix = "pbcBotImage_"
+    val downloadedImagesPrefix = Config("downloadedImagesPrefix")
+    val imagesTempDirectory = Config("imagesTempDirectory")
+    val extension = Config.google("fileType")
 
     def iter(counter: Int = 0): String = {
-      val file = new File(s"/tmp/${ downloadedImagesPrefix }${ counter }.jpg")
+      val file = new File(s"${ imagesTempDirectory }/${ downloadedImagesPrefix }${ counter }.${ extension }")
 
       if (file.exists) iter(counter + 1) else file.getPath
     }
