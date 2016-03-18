@@ -14,12 +14,12 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with P
   on(Weather.command) { (sender, args) => replyTo(sender) { Weather.handler(sender, args) } }
   on(Echo.command)    { (sender, args) => replyTo(sender) { Echo.handler(sender, args) } }
   on(Photo.command)   { (sender, args) =>
-      Photo.handler(sender, args)((photo, title) =>
-        photoCallback(sender, photo, title), message => sendMessage(sender, message))
+    Photo.handler(sender, args)((photo, title) =>
+      photoCallback(sender, photo, title), message => sendMessage(sender, message))
   }
   on(Picture.command) { (sender, args) =>
-      Picture.handler(sender, args)((photo, title) =>
-        photoCallback(sender, photo, title), message => sendMessage(sender, message))
+    Picture.handler(sender, args)((photo, title) =>
+      photoCallback(sender, photo, title), message => sendMessage(sender, message))
   }
   on("random") { (sender, args) => replyTo(sender) { RubyModule.execute("random", args) } }
 
