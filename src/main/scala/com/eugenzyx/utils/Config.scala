@@ -20,6 +20,7 @@ object Config {
   def google(value: String): String = section("google")(value)
   def flickr(value: String): String = section("flickr")(value)
   def weather(value: String): String = section("open-weather-map")(value)
+  def logging(value: String): String = section("logging")(value)
 
   private def section(section: String) = config.section(section)
 }

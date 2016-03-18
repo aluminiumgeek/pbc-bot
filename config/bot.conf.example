@@ -18,3 +18,7 @@ key=
 [open-weather-map]
 key=
 units=metric
+
+[logging]
+enabled=true
+outputFile=pbc_chat_log.txt

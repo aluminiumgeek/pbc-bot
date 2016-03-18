@@ -16,6 +16,7 @@ lazy val root = (project in file("."))
       "org.scalaj" %% "scalaj-http" % "2.2.1",
       "net.liftweb" %% "lift-json" % "2.6+",
       "com.github.scopt" %% "scopt" % "3.4.0",
-      "uk.co.bigbeeconsultants" %% "bee-config" % "1.6.4"
+      "uk.co.bigbeeconsultants" %% "bee-config" % "1.6.4",
+      "org.apache.hadoop" % "hadoop-core" % "1.0.3"
     )
   )
