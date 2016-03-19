@@ -28,26 +28,14 @@ object Photo extends Command with ImageCommand {
     if (pattern.isEmpty) {
       notFoundCallback("No pattern given. No previous results are present.")
     } else {
-      val storeKey = s"pbc_photo_$pattern"
-      val responseBody: String = Store.client.get(storeKey) match {
-        case Some(body:String) =>
-          println("Using cached request")
-          body
-        case None =>
-          println("Making request")
-          val request = HttpUtils.request("https://api.flickr.com/services/rest/")
-            .param("method", "flickr.photos.search")
-            .param("format", "json")
-            .param("text", pattern)
-            .param("api_key", Config("flickr-api-key"))
-            .param("nojsoncallback", "true")
+      val request = HttpUtils.request("https://api.flickr.com/services/rest/")
+        .param("method", "flickr.photos.search")
+        .param("format", "json")
+        .param("text", pattern)
+        .param("api_key", Config.flickr("key"))
+        .param("nojsoncallback", "true")
 
-          val body = request.asString.body
-          Store.client.set(storeKey, body)
-          body
-      }
-
-      val images = getImages(pattern, responseBody, p => parse(p).extract[Photos])
+      val images = getImages(pattern, request, p => parse(p).extract[Photos])
 
       respondWithImagesResult(images, foundCallback, notFoundCallback)
     }

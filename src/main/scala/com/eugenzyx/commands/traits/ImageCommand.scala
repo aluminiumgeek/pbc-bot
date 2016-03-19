@@ -2,7 +2,7 @@ package com.eugenzyx.commands.traits
 
 import com.eugenzyx.commands.domain.traits.Images
 import com.eugenzyx.exceptions.ImageCorruptException
-import com.eugenzyx.utils.Store
+import com.eugenzyx.utils.{Config, Store}
 
 import info.mukel.telegram.bots.api.{InputFile, Message, PhotoSize}
 
@@ -20,6 +20,7 @@ import javax.net.ssl.SSLHandshakeException
 trait ImageCommand {
   val lastResults: LinkedHashMap[String, Images] = LinkedHashMap()
   implicit val formats = net.liftweb.json.DefaultFormats
+  val imagesCacheSize = Config("imagesCacheSize").toInt
 
   def getImages(pattern: String, response: String, parseFunc: String => Images): Images = {
     if (lastResults.contains(pattern)) {
@@ -32,7 +33,7 @@ trait ImageCommand {
       val photos = parseFunc(response)
 
       lastResults += (pattern -> photos)
-      if (lastResults.size >= 10) lastResults -= lastResults.head._1
+      if (lastResults.size >= imagesCacheSize) lastResults -= lastResults.head._1
 
       photos
     }

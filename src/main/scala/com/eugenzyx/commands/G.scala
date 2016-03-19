@@ -22,7 +22,7 @@ object G extends Command {
       val response = HttpUtils.request("http://ajax.googleapis.com/ajax/services/search/web")
         .param("v", "1.0")
         .param("q", pattern)
-        .param("key", Config("google-api-key"))
+        .param("key", Config.google("key"))
         .asString
 
       val results = parse(response.body) \ "responseData" \ "results"

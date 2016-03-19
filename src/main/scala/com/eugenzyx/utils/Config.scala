@@ -1,17 +1,25 @@
 package com.eugenzyx.utils
 
-import java.io.{FileNotFoundException, File}
+import java.io.File
 
-import scala.io.Source
+import uk.co.bigbeeconsultants.bconfig.{Config => BeeConfig}
 
 /**
   * Created by eugene on 3/10/16.
   */
 object Config {
-  def apply(value: String): String = {
-    val configsPath: String = "./config/"
-    val configFile: File = new File(configsPath, value)
+  val configPath: String = "./config/bot.conf"
+  val configFile: File = new File(configPath)
 
-    if (configFile.exists) Source.fromFile(configFile).mkString.stripLineEnd else throw new FileNotFoundException
-  }
+  require(configFile.exists, "Configuration file should be present!")
+
+  val config = BeeConfig(configFile)
+
+  def apply(value: String): String = section("general")(value)
+
+  def google(value: String): String = section("google")(value)
+  def flickr(value: String): String = section("flickr")(value)
+  def weather(value: String): String = section("open-weather-map")(value)
+
+  private def section(section: String) = config.section(section)
 }
