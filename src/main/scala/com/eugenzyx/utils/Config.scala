@@ -22,5 +22,7 @@ object Config {
   def weather(value: String): String = section("open-weather-map")(value)
   def logging(value: String): String = section("logging")(value)
 
+  def isLoggingEnabled: Boolean = logging("enabled").toBoolean
+
   private def section(section: String) = config.section(section)
 }

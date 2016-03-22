@@ -3,8 +3,8 @@ package com.eugenzyx.utils
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 
-import org.apache.hadoop.conf._
-import org.apache.hadoop.fs._
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.{FileSystem, Path, FSDataOutputStream}
 
 class HadoopWriter(outputFile: String) {
   private val conf = new Configuration()
@@ -34,13 +34,13 @@ class HadoopWriter(outputFile: String) {
       fsDataOutputStream.close()
     }
 
-    def append: Unit = {
+    def append(): Unit = {
       val fsDataOutputStream = hdfs.append(hdfsOutputFilePath)
 
       saveFSDataOutputStream(fsDataOutputStream)
     }
 
-    def create: Unit = {
+    def create(): Unit = {
       val fsDataOutputStream = hdfs.create(hdfsOutputFilePath)
 
       saveFSDataOutputStream(fsDataOutputStream)
@@ -52,5 +52,5 @@ class HadoopWriter(outputFile: String) {
   /**
    * Closes filesystem.
    */
-  def closeFileSystem: Unit = hdfs.close()
+  def closeFileSystem(): Unit = hdfs.close()
 }

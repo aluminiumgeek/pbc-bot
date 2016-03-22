@@ -20,5 +20,5 @@ key=
 units=metric
 
 [logging]
-enabled=true
+enabled=false
 outputFile=pbc_chat_log.txt
