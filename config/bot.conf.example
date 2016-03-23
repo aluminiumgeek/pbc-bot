@@ -22,3 +22,6 @@ units=metric
 [logging]
 enabled=false
 outputFile=pbc_chat_log.txt
+
+[hadoop]
+coreSitePath=/etc/hadoop/conf/core-site.xml

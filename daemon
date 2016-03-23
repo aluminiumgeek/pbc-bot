@@ -8,8 +8,8 @@ param=${1-undef}
 # jsvc=/bin/jsvc
 jsvc=/usr/bin/jsvc
 
-app_home="${HOME}/Documents/projects/pbc-bot/target/scala-2.11"
-work_dir="${HOME}/Documents/projects/pbc-bot"
+app_home="${HOME}/projects/pbc-bot/target/scala-2.11"
+work_dir="${HOME}/projects/pbc-bot"
 
 app_name="PbcBot"
 jar=$app_home/PbcBot.jar
@@ -52,7 +52,6 @@ error() {
 check_std_log() {
   logfile=$1
   if [[ -f ${logfile} ]]; then
-      rm ${logfile}
     if [[ ! -s ${logfile} ]]; then
       rm ${logfile}
     else

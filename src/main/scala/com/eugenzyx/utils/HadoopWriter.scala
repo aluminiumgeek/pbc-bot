@@ -3,14 +3,18 @@ package com.eugenzyx.utils
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.fs.{FileSystem, Path, FSDataOutputStream}
+import org.apache.hadoop.conf._
+import org.apache.hadoop.fs._
 
 class HadoopWriter(outputFile: String) {
-  private val conf = new Configuration()
-  private val hdfs = FileSystem.get(conf)
+  private val hdfsCoreSitePath = new Path(Config.hadoop("coreSitePath"))
   private val hdfsOutputFilePath = new Path(outputFile)
   private val encoding = "UTF-8"
+  private val conf = new Configuration()
+
+  conf.addResource(hdfsCoreSitePath)
+
+  private val hdfs = FileSystem.get(conf)
 
   /**
    * Determines whether the file with given path exists or not.

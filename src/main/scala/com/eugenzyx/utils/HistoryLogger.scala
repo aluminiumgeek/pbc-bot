@@ -12,7 +12,7 @@ object HistoryLogger extends LazyLogging {
     if (update.message.isDefined) {
       val m = update.message.get
       val u = m.from
-      val data = s"${ m.messageId },${ m.date },${ u.id },${ u.lastName },${ u.username },${ m.audio },${m.document},${m.photo},${m.sticker}"
+      val data = s"${ m.messageId },${ m.date },${ u.id },${ u.lastName },${ u.username },${ m.audio },${ m.document },${ m.photo },${ m.sticker },${ m.text.get }"
 
       logger.info(s"Saving event: $data")
 
