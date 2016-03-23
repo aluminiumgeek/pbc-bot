@@ -1,5 +1,7 @@
 package com.eugenzyx
 
+import com.typesafe.scalalogging.LazyLogging
+
 object Program {
   def main(args: Array[String]): Unit = {
     case class Config(interactive: Boolean = false, launch: Boolean = false)
@@ -27,7 +29,7 @@ object Program {
         if (config.launch) {
           println("Starting the bot.")
 
-          Bot.run
+          new PbcBotDaemon().start
         }
 
       case None => println("Specify mode to run in: interactive or launch.")

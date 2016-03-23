@@ -17,9 +17,14 @@ object Config {
 
   def apply(value: String): String = section("general")(value)
 
+  // use reflection
   def google(value: String): String = section("google")(value)
   def flickr(value: String): String = section("flickr")(value)
   def weather(value: String): String = section("open-weather-map")(value)
+  def logging(value: String): String = section("logging")(value)
+  def hadoop(value: String): String = section("hadoop")(value)
+
+  def isLoggingEnabled: Boolean = logging("enabled").toBoolean
 
   private def section(section: String) = config.section(section)
 }

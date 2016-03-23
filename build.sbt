@@ -16,6 +16,21 @@ lazy val root = (project in file("."))
       "org.scalaj" %% "scalaj-http" % "2.2.1",
       "net.liftweb" %% "lift-json" % "2.6+",
       "com.github.scopt" %% "scopt" % "3.4.0",
-      "uk.co.bigbeeconsultants" %% "bee-config" % "1.6.4"
+      "uk.co.bigbeeconsultants" %% "bee-config" % "1.6.4",
+      "org.apache.hadoop" % "hadoop-client" % "2.3.0",
+      "commons-daemon" % "commons-daemon" % "1.0.15",
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
+      "ch.qos.logback" % "logback-classic" % "1.1.2"
     )
   )
+
+assemblyJarName in assembly := "PbcBot.jar"
+
+assemblyMergeStrategy in assembly := {
+    case PathList("javax", "servlet", xs @ _*) => MergeStrategy.last
+    case PathList("org", "apache", xs @ _*) => MergeStrategy.last
+    case PathList("org", "slf4j", xs @ _*) => MergeStrategy.last
+    case x =>
+      val oldStrategy = (assemblyMergeStrategy in assembly).value
+      oldStrategy(x)
+}
