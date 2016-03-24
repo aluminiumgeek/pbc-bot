@@ -20,7 +20,8 @@ lazy val root = (project in file("."))
       "org.apache.hadoop" % "hadoop-client" % "2.3.0",
       "commons-daemon" % "commons-daemon" % "1.0.15",
       "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
-      "ch.qos.logback" % "logback-classic" % "1.1.2"
+      "ch.qos.logback" % "logback-classic" % "1.1.2",
+      "net.ruippeixotog" %% "scala-scraper" % "0.1.2"
     )
   )
 
