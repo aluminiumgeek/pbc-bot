@@ -2,11 +2,26 @@
 
 ## Summary
 
-A Telegram bot for the secret Post-Apocalyptic B. community.
+A Telegram bot for the secret Post-Apocalyptic B. community. This community appeared in the beginning of 2016 in the [OnApp Ltd.](http://www.onapp.com) in the result of combined efforts of the vCloud & Application Server teams members.
 
-## The Story
+## Features
 
-This community appeared in the beginning of 2016 in the [OnApp Ltd.](http://www.onapp.com) in the result of combined efforts of the vCloud & Application Server teams members.
+- logging chat history to the Hadoop Distributed File System (the bot is actually running on a cluster)
+- the only bot that features unique `/turbofolklorize` command that allows one immediately enjoy a Serbian turbo-folk song that's randomly got from the [serbzone.com](http://serbzone.com/)
+- daemon (jsvc) and interactive modes
+
+## Available Commands
+
+- g - I'm Feeling Lucky!
+- help - Show help message.
+- hey - Hey!
+- echo - Echoes your text.
+- weather - Get current weather in a city.
+- man - An interface to the on-line reference manuals.
+- pic - Get a picture that matches a pattern.
+- photo - Get a photo that matches a pattern.
+- random - Get a random number from the specified range.
+- turbofolklorize - Get a random song from the [serbzone.com](http://serbzone.com).
 
 ## Goals
 
@@ -23,16 +38,3 @@ First, read general topic on [contribution to Open Source](https://guides.github
 3. Add `on(<command>)` statement to `PROJECT_ROOT/src/main/scala/com/eugenzyx/Bot.scala`.
 
 Refer to `random.rb` as an example.
-
-## Available Commands
-
-- g - I'm Feeling Lucky!
-- help - Show help message.
-- hey - Hey!
-- echo - Echoes your text.
-- weather - Get current weather in a city.
-- man - An interface to the on-line reference manuals.
-- pic - Get a picture that matches a pattern.
-- photo - Get a photo that matches a pattern.
-- random - Get a random number from the specified range.
-- turbofolklorize - Get a random song from [serbzone.com](http://serbzone.com).
