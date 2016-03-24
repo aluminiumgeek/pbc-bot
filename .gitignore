@@ -24,3 +24,5 @@ checkpoint/
 
 config/bot.token
 config/bot.conf
+
+.gitconfig

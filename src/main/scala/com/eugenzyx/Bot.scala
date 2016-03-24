@@ -2,9 +2,10 @@ package com.eugenzyx
 
 import com.eugenzyx.commands._
 import com.eugenzyx.modules.RubyModule
+import com.eugenzyx.utils.{HistoryLogger, Config}
 
 import info.mukel.telegram.bots.{TelegramBot, Polling, Commands, Utils}
-import info.mukel.telegram.bots.api.InputFile
+import info.mukel.telegram.bots.api.{InputFile, Update}
 
 object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with Polling with Commands {
   on(G.command)       { (sender, args) => replyTo(sender) { G.handler(sender, args) } }
@@ -27,5 +28,17 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with P
     case photo: InputFile => sendPhoto(sender, photo, title)
     case fileId: String   => sendPhotoId(sender, fileId, title)
     case _                => throw new IllegalStateException("Incorrect data")
+  }
+
+  override def handleUpdate(update: Update): Unit = {
+    if (Config.isLoggingEnabled) HistoryLogger.log(update)
+
+    super.handleUpdate(update)
+  }
+
+  override def stop(): Unit = {
+    HistoryLogger.closeFS
+
+    super.stop()
   }
 }
