@@ -20,8 +20,8 @@ object Picture extends Command with ImageCommand {
 
   def handler(sender           : Int,
               args             : Seq[String])
-             (foundCallback    : (Any, Option[String]) => Future[Message],
-              notFoundCallback : String                => Future[Message]): Future[Message] = {
+             (foundCallback    : (AnyRef, Option[String]) => Future[Message],
+              notFoundCallback : String                   => Future[Message]): Future[Message] = {
 
     val pattern = getPattern(args)
 

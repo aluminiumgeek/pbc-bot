@@ -23,7 +23,7 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with P
   }
   on("random") { (sender, args) => replyTo(sender) { RubyModule.execute("random", args) } }
 
-  def photoCallback(sender: Int, photo: Any, title: Option[String]) = photo match {
+  def photoCallback(sender: Int, photo: AnyRef, title: Option[String]) = photo match {
     case photo: InputFile => sendPhoto(sender, photo, title)
     case fileId: String   => sendPhotoId(sender, fileId, title)
     case _                => throw new IllegalStateException("Incorrect data")

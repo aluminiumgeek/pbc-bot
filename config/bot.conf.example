@@ -5,6 +5,10 @@ imagesCacheSize=10
 imagesTempDirectory=/tmp
 downloadedImagesPrefix=pbcBotImage_
 
+[redis]
+host=localhost
+port=6379
+
 [google]
 key=
 cx=

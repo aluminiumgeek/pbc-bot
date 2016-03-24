@@ -4,7 +4,7 @@ import com.eugenzyx.commands.domain.traits.Images
 import com.eugenzyx.exceptions.ImageCorruptException
 import com.eugenzyx.utils.{Config, Store}
 
-import info.mukel.telegram.bots.api.{InputFile, Message, PhotoSize}
+import info.mukel.telegram.bots.api.{InputFile, Message}
 
 import scala.collection.mutable.LinkedHashMap
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -22,7 +22,7 @@ trait ImageCommand {
   implicit val formats = net.liftweb.json.DefaultFormats
   val imagesCacheSize = Config("imagesCacheSize").toInt
 
-  def getImages(pattern: String, response: String, parseFunc: String => Images): Images = {
+  def getImages(pattern: String, request: HttpRequest, parseFunc: String => Images): Images = {
     if (lastResults.contains(pattern)) {
       println("Cached pattern.")
 
@@ -30,7 +30,8 @@ trait ImageCommand {
     } else {
       println("Unknown pattern.")
 
-      val photos = parseFunc(response)
+      val response = request.asString
+      val photos = parseFunc(response.body)
 
       lastResults += (pattern -> photos)
       if (lastResults.size >= imagesCacheSize) lastResults -= lastResults.head._1
@@ -40,7 +41,7 @@ trait ImageCommand {
   }
 
   def respondWithImagesResult(images           : Images,
-                              foundCallback    : (Any, Option[String]) => Future[Message],
+                              foundCallback    : (AnyRef, Option[String]) => Future[Message],
                               notFoundCallback : String                => Future[Message]): Future[Message] = {
     if (images.images.isEmpty) {
       notFoundCallback("Not found.")
