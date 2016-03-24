@@ -35,4 +35,4 @@ Refer to `random.rb` as an example.
 - pic - Get a picture that matches a pattern.
 - photo - Get a photo that matches a pattern.
 - random - Get a random number from the specified range.
-- turbofolklorize - Get a random song from serbzone.com.
+- turbofolklorize - Get a random song from [serbzone.com](serbzone.com).
