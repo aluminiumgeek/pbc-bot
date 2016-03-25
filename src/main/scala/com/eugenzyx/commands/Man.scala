@@ -28,6 +28,7 @@ object Man extends Command {
         case Weather.command => Weather.description
         case Echo.command => Echo.description
         case Man.command => Man.description
+        case Turbofolklorize.command => Turbofolklorize.description
         case _ => s"No manual entry for $entry"
       }
     }

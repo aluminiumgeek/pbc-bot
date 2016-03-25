@@ -3,6 +3,7 @@ connectionTimeout=10000
 readTimeout=30000
 imagesCacheSize=10
 imagesTempDirectory=/tmp
+audioTempDirectory=/tmp
 downloadedImagesPrefix=pbcBotImage_
 
 [redis]

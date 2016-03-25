@@ -22,6 +22,9 @@ object Bot extends TelegramBot(Utils.tokenFromFile("./config/bot.token")) with P
     Picture.handler(sender, args)((photo, title) =>
       photoCallback(sender, photo, title), message => sendMessage(sender, message))
   }
+
+  on(Turbofolklorize.command) { (sender, args) => Turbofolklorize.handler(sender)((song) => sendAudio(sender, song)) }
+
   on("random") { (sender, args) => replyTo(sender) { RubyModule.execute("random", args) } }
 
   def photoCallback(sender: Int, photo: AnyRef, title: Option[String]) = photo match {
